@@ -15,7 +15,12 @@ namespace ToolbarControl_NS
         internal static GUIStyle windowStyle = null;
 
         Rect introWindow;
-        int introWindowId = GUIUtility.GetControlID(FocusType.Passive);
+        // "GetControlID is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'IntroWindowClass' on game object 'IntroWindowClass'."
+        // So let's turn it into a Property
+        int introWindowId
+        {
+            get { return GUIUtility.GetControlID(FocusType.Passive); }
+        }
         int MAIN_WIDTH = Screen.height * 3 / 4;
         int MAIN_HEIGHT = 400;
         internal static int automoved = 0;
