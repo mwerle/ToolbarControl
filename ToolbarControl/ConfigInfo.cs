@@ -13,9 +13,19 @@ namespace ToolbarControl_NS
     {
         public static ConfigInfo Instance;
         const string SETTINGSNAME = "ToolbarController";
-        static string PLUGINDATA = KSPUtil.ApplicationRootPath + "GameData/001_ToolbarControl/PluginData/Debug.cfg";
 
         static public bool debugMode = false;
+
+        // KSPUtil.ApplicationRootPath internally calls get_dataPath, and :
+        // "get_dataPath is not allowed to be called from a MonoBehaviour
+        // constructor (or instance field initializer), call it in Awake
+        // or Start instead."
+        // As it's not very resource-intensive and we're not calling it all
+        // that often anyway, let's make it a Property.
+        static string PLUGINDATA
+        {
+            get { return KSPUtil.ApplicationRootPath + "GameData/001_ToolbarControl/PluginData/Debug.cfg"; }
+        }
 
         void Start()
         {
